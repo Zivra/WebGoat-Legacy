@@ -26,5 +26,7 @@ jobs:
 
       - name: Run JUnit test with Maven
         run: |
+          echo "Project name is ${GITHUB_REPOSITORY#*/}"
+          echo "Project name is ${GITHUB_REPOSITORY}"
           mvn test
       
