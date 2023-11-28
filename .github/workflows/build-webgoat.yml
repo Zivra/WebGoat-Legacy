@@ -31,7 +31,7 @@ jobs:
 
       - name: Copy Settings.xml to m2 folder
         run: |
-          cp  /home/runner/work/WebGoat-Legacy/WebGoat-Legacy/settings.xml ./.m2/settings.xml
+          cp  /home/runner/work/WebGoat-Legacy/WebGoat-Legacy/settings.xml /home/runner/.m2/settings.xml
 
 #      - name: Generate maven settings.xml
 #        uses: whelk-io/maven-settings-xml-action@v21
