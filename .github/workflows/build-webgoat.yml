@@ -32,6 +32,7 @@ jobs:
       - name: Copy Settings.xml to m2 folder
         run: |
           cp  /home/runner/work/${GITHUB_REPOSITORY#*/}/${GITHUB_REPOSITORY#*/}/settings.xml /home/runner/.m2/settings.xml
+          ls -la /home/runner/.m2
 
 #      - name: Generate maven settings.xml
 #        uses: whelk-io/maven-settings-xml-action@v21
