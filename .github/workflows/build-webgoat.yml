@@ -23,6 +23,12 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      - name: Find settings.xml
+        run: |
+          cd /
+          echo "Finding settings.xml from root directory"
+          sudo find . -name settings.xml
+
 
       - name: Run JUnit test with Maven
         run: |
