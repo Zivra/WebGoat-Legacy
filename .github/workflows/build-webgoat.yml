@@ -29,55 +29,34 @@ jobs:
           echo "Printing settings.xml"
           sudo cat /home/runner/.m2/settings.xml
 
-      - name: Copy Settings.xml to m2 folder
+      - name: Checkout code common module
+        uses: actions/checkout@v4
+        with: 
+          repository: "Zivra/Common-Module-workflows"
+          ref: "jorge-test-branch1"
+          path: Common-Module-workflows
+          token: ${{secrets.GH_ACTIONS_PAT}}
+
+      - name: list common module directory
         run: |
-          cp  /home/runner/work/${GITHUB_REPOSITORY#*/}/${GITHUB_REPOSITORY#*/}/settings.xml /home/runner/.m2/settings.xml
-          ls -la /home/runner/.m2
+          cd $GITHUB_WORKSPACE
+          ls -la 
+          echo "listing home directory"
+          sudo ls -la /home/runner/
+          echo "listing m2 directory"
+          sudo ls -la /home/runner/.m2
 
-#      - name: Generate maven settings.xml
-#        uses: whelk-io/maven-settings-xml-action@v21
-#        with:
-#          repositories: >
-#            [
-#              {
-#                "id": "central",
-#                "url": "https://repo1.maven.org/maven2"
-#              },
-#              {
-#                "id": "github",
-#                "url": "https://maven.pkg.github.com/zivra/*",
-#                "snapshots": {
-#                  "enabled": "true"
-#                }
-#              }
-#            ]
-#          plugin_repositories: >
-#            [
-#              {
-#                "id": "central",
-#                "url": "https://repo1.maven.org/maven2",
-#                "snapshots": {
-#                  "enabled": "true"
-#                }
-#              },
-#              {
-#                "id": "github",
-#                "url": "https://maven.pkg.github.com/zivra/*",
-#                "snapshots": {
-#                  "enabled": "true"
-#                }
-#              }
-#            ] 
-#          servers: >
-#            [
-#              {
-#                "id": "github",
-#                "username": "${env.GITHUB_ACTOR}",
-#                "password": "${env.GITHUB_TOKEN}"
-#              }
-#            ]
-#          output_file: .m2/settings.xml
+      - name: Copy settings.xml file
+        run: |
+          cp $GITHUB_WORKSPACE/Common-Module-workflows/settings.xml /home/runner/.m2/settings.xml
+          ls -la
+          cat /home/runner/.m2/settings.xml
+          echo "working dir is $GITHUB_WORKSPACE"
 
+#      - name: Copy Settings.xml to m2 folder
+#        run: |
+#          cp  /home/runner/work/${GITHUB_REPOSITORY#*/}/${GITHUB_REPOSITORY#*/}/settings.xml /home/runner/.m2/settings.xml
+#          ls -la /home/runner/.m2
 
       - name: Run JUnit test with Maven
         run: |
